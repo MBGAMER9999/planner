@@ -1,96 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uitgebreide Weekplanner</title>
+  <style>
+    /* Overall Layout */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      margin: 0;
+      padding: 0;
+      color: #e0e0e0;
+    }
+    
+    header {
+      background-color: #000;
+      color: #e0e0e0;
+      text-align: center;
+      padding: 15px 0;
+      border-bottom: 2px solid #007bff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    
+    /* Week Controls */
+    .week-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #1c1c1c;
+      border-bottom: 1px solid #007bff;
+    }
+    
+    .week-controls button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.3s;
+      margin: 5px;
+    }
+    
+    .week-controls button:hover {
+      background-color: #0056b3;
+    }
+    
+    .week-controls span {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #e0e0e0;
+      margin: 5px;
+    }
+    
+    /* Main Container */
+    main {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    }
+    
+    /* Week View & Days */
+    .week-view {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 15px;
+    }
+    
+    .day {
+      background-color: #222;
+      border: 1px solid #333;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      transition: box-shadow 0.2s, background-color 0.2s;
+      position: relative;
+    }
+    
+    .day:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    }
+    
+    .day.current-day {
+      border: 2px solid #007bff;
+      background-color: #1a1a1a;
+    }
+    
+    .day h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #007bff;
+      padding: 10px;
+      background-color: #000;
+      border-radius: 6px;
+      text-align: center;
+    }
+    
+    .day .task-list {
+      flex-grow: 1;
+      margin-top: 10px;
+      overflow-y: auto;
+      padding: 10px 0;
+      max-height: 200px;
+    }
+    
+    /* Tasks */
+    .task {
+      background-color: #2a2a2a;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+    
+    .task:hover {
+      background-color: #3a3a3a;
+    }
+    
+    .task.completed {
+      text-decoration: line-through;
+      background-color: #444;
+      color: #888;
+    }
+    
+    .task .task-time {
+      font-weight: bold;
+      color: #e0e0e0;
+    }
+    
+    .task .task-title {
+      flex-grow: 1;
+      margin-left: 10px;
+      color: #e0e0e0;
+      text-align: left;
+    }
+    
+    /* Task Summary */
+    .task-summary {
+      font-size: 0.8rem;
+      color: #bbb;
+      text-align: right;
+      margin-top: 5px;
+    }
+    
+    /* Info Panel */
+    .info-panel {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #1e1e1e;
+      border: 1px solid #007bff;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+    
+    .info-panel h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #007bff;
+    }
+    
+    .info-panel p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #e0e0e0;
+    }
+    
+    /* Floating Add Task Button */
+    #add-task-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #007bff;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+      transition: background-color 0.3s;
+    }
+    
+    #add-task-button:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Modals */
+    #modal,
+    #task-details-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    
+    #modal-content,
+    #task-details-modal form {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    #modal-close,
+    #details-modal-close,
+    #delete-task,
+    #duplicate-task {
+      background-color: #d9534f;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    #modal-close:hover,
+    #details-modal-close:hover,
+    #delete-task:hover,
+    #duplicate-task:hover {
+      background-color: #c9302c;
+    }
+    
+    form {
+      display: grid;
+      gap: 10px;
+    }
+    
+    form input,
+    form select,
+    form textarea,
+    form button,
+    form label {
+      padding: 10px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      font-size: 1rem;
+      background-color: #2a2a2a;
+      color: #e0e0e0;
+    }
+    
+    form button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    form button:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .week-view {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .week-controls span,
+      .week-controls button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .week-view {
+        grid-template-columns: 1fr;
+      }
+      .week-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .week-controls button,
+      .week-controls span {
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Planner</h1>
+  </header>
+  <div class="week-controls">
+    <button id="prev-week">&larr; Vorige Week</button>
+    <span id="current-week">Week van <span id="week-start"></span> tot <span id="week-end"></span></span>
+    <button id="next-week">Volgende Week &rarr;</button>
+    <button id="clear-completed">Clear Completed Tasks</button>
+  </div>
+  <main>
+    <div class="week-view" id="week-view"></div>
+    <div class="info-panel" id="info-panel" style="display: none;">
+      <h3>Taakdetails</h3>
+      <p id="task-details"></p>
+    </div>
+  </main>
+  <button id="add-task-button">+</button>
+
+  <!-- Add Task Modal -->
+  <div id="modal">
+    <div id="modal-content">
+      <button id="modal-close">Sluiten</button>
+      <form id="task-form">
+        <input type="text" id="task-title" placeholder="Taak titel" required />
+        <textarea id="task-info" placeholder="Informatie"></textarea>
+        <input type="color" id="task-color" value="#007bff" />
+        <select id="task-day" required></select>
+        <input type="time" id="task-time" required />
+        <button type="submit">Taak toevoegen</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Task Details Modal -->
+  <div id="task-details-modal">
+    <form id="task-details-form">
+      <label>Title: <input type="text" id="details-title" required /></label>
+      <label>Info: <textarea id="details-info"></textarea></label>
+      <label>Color: <input type="color" id="details-color" /></label>
+      <label>Day: <input type="date" id="details-day" required /></label>
+      <label>Time: <input type="time" id="details-time" required /></label>
+      <label>Completed: <input type="checkbox" id="task-complete" /></label>
+      <div>
+        <button type="submit">Save</button>
+        <button type="button" id="delete-task">Delete</button>
+        <button type="button" id="duplicate-task">Duplicate</button>
+        <button type="button" id="details-modal-close">Close</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const weekView = document.getElementById("week-view");
+    const currentWeekDisplay = document.getElementById("current-week");
+    const weekStartDisplay = document.getElementById("week-start");
+    const weekEndDisplay = document.getElementById("week-end");
+    const addTaskButton = document.getElementById("add-task-button");
+    const modal = document.getElementById("modal");
+    const taskForm = document.getElementById("task-form");
+    const taskDaySelect = document.getElementById("task-day");
+    const infoPanel = document.getElementById("info-panel");
+    const taskDetailsModal = document.getElementById("task-details-modal");
+    const taskDetailsForm = document.getElementById("task-details-form");
+    const taskCompleteCheckbox = document.getElementById("task-complete");
+    const deleteTaskButton = document.getElementById("delete-task");
+
+    let currentWeekStart = new Date();
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function getWeekRange(startDate) {
+      const start = new Date(startDate);
+      const dayOfWeek = start.getDay();
+      const diff = start.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
+      const weekStart = new Date(start.setDate(diff));
+      const weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekEnd.getDate() + 6);
+      return { weekStart, weekEnd };
+    }
+
+    function formatDate(date) {
+      return date.toISOString().split("T")[0];
+    }
+
+    function renderWeek() {
+      const { weekStart, weekEnd } = getWeekRange(currentWeekStart);
+      weekStartDisplay.textContent = formatDate(weekStart);
+      weekEndDisplay.textContent = formatDate(weekEnd);
+
+      weekView.innerHTML = "";
+      taskDaySelect.innerHTML = "";
+
+      const today = new Date().toISOString().split("T")[0];
+
+      for (let i = 0; i < 7; i++) {
+        const day = new Date(weekStart);
+        day.setDate(weekStart.getDate() + i);
+
+        const dayDiv = document.createElement("div");
+        dayDiv.className = "day";
+        dayDiv.dataset.date = formatDate(day);
+
+        if (formatDate(day) === today) {
+          dayDiv.classList.add("current-day");
+        }
+
+        const dayHeader = document.createElement("h3");
+        dayHeader.textContent = day.toLocaleDateString("nl-NL", { weekday: "long", day: "numeric", month: "short" });
+
+        const taskList = document.createElement("div");
+        taskList.className = "task-list";
+        taskList.dataset.date = formatDate(day);
+
+        // Filter tasks for this day and sort them by time (earlier times first)
+        const tasksForDay = tasks.filter(task => task.day === formatDate(day));
+        tasksForDay.sort((a, b) => a.time.localeCompare(b.time));
+        tasksForDay.forEach(task => {
+          const taskDiv = document.createElement("div");
+          taskDiv.className = `task ${task.completed ? "completed" : ""}`;
+          taskDiv.style.borderColor = task.color;
+          taskDiv.dataset.taskId = task.id;
+
+          const taskTime = document.createElement("span");
+          taskTime.className = "task-time";
+          taskTime.textContent = task.time;
+
+          const taskTitle = document.createElement("span");
+          taskTitle.className = "task-title";
+          taskTitle.textContent = task.title;
+
+          taskDiv.appendChild(taskTime);
+          taskDiv.appendChild(taskTitle);
+          taskList.appendChild(taskDiv);
+
+          taskDiv.addEventListener("click", () => {
+            displayTaskDetails(task);
+          });
+        });
+
+        dayDiv.appendChild(dayHeader);
+        dayDiv.appendChild(taskList);
+
+        // Add summary of total tasks for the day
+        const summary = document.createElement("div");
+        summary.className = "task-summary";
+        summary.textContent = `Total tasks: ${tasksForDay.length}`;
+        dayDiv.appendChild(summary);
+
+        weekView.appendChild(dayDiv);
+
+        const option = document.createElement("option");
+        option.value = formatDate(day);
+        option.textContent = day.toLocaleDateString("nl-NL", { weekday: "long", day: "numeric", month: "short" });
+        taskDaySelect.appendChild(option);
+      }
+    }
+
+    function displayTaskDetails(task) {
+      taskDetailsModal.style.display = "flex";
+      document.getElementById("details-title").value = task.title;
+      document.getElementById("details-info").value = task.info;
+      document.getElementById("details-color").value = task.color;
+      document.getElementById("details-day").value = task.day;
+      document.getElementById("details-time").value = task.time;
+      taskCompleteCheckbox.checked = task.completed || false;
+
+      taskDetailsForm.onsubmit = (event) => {
+        event.preventDefault();
+        task.title = document.getElementById("details-title").value;
+        task.info = document.getElementById("details-info").value;
+        task.color = document.getElementById("details-color").value;
+        task.day = document.getElementById("details-day").value;
+        task.time = document.getElementById("details-time").value;
+        task.completed = taskCompleteCheckbox.checked;
+
+        saveTasks();
+        renderWeek();
+        taskDetailsModal.style.display = "none";
+      };
+
+      deleteTaskButton.onclick = () => {
+        tasks = tasks.filter(t => t.id !== task.id);
+        saveTasks();
+        renderWeek();
+        taskDetailsModal.style.display = "none";
+      };
+
+      document.getElementById("duplicate-task").onclick = () => {
+        const newTask = { ...task, id: Date.now() };
+        tasks.push(newTask);
+        saveTasks();
+        renderWeek();
+        taskDetailsModal.style.display = "none";
+      };
+    }
+
+    function saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    taskForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const task = {
+        id: Date.now(),
+        title: document.getElementById("task-title").value,
+        info: document.getElementById("task-info").value,
+        color: document.getElementById("task-color").value,
+        day: document.getElementById("task-day").value,
+        time: document.getElementById("task-time").value,
+        completed: false,
+      };
+      tasks.push(task);
+      saveTasks();
+      renderWeek();
+      modal.style.display = "none";
+      taskForm.reset();
+    });
+
+    addTaskButton.addEventListener("click", () => {
+      modal.style.display = "flex";
+    });
+
+    document.getElementById("modal-close").addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    document.getElementById("details-modal-close").addEventListener("click", () => {
+      taskDetailsModal.style.display = "none";
+    });
+
+    document.getElementById("prev-week").addEventListener("click", () => {
+      currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+      renderWeek();
+    });
+
+    document.getElementById("next-week").addEventListener("click", () => {
+      currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+      renderWeek();
+    });
+
+    document.getElementById("clear-completed").addEventListener("click", () => {
+      tasks = tasks.filter(task => !task.completed);
+      saveTasks();
+      renderWeek();
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderWeek();
+    });
+  </script>
+</body>
 </html>
